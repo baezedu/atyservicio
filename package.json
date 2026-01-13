@@ -1,0 +1,11 @@
+{
+  "name": "atyservicio",
+  "version": "0.1.0",
+  "homepage": "https://atyservicio.com",
+  "description": "Plantilla mínima para el sitio atyservicio",
+  "scripts": {
+    "start": "npx live-server --port=3000 --open=./index.html"
+  },
+  "author": "",
+  "license": "MIT"
+}
