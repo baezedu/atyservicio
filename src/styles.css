@@ -418,6 +418,12 @@ body {
   margin: 0 auto;
 }
 
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
 .contact-form-wrapper {
   background: var(--white);
   padding: 40px;
