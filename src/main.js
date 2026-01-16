@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Iniciar el slideshow automático
   startSlideShow();
 
-  // Formulario de contacto con FormSpree
+  // Formulario de contacto con Web3Forms
   const contactForm = document.getElementById('contactForm');
   
   if (contactForm) {
@@ -124,22 +124,22 @@ document.addEventListener('DOMContentLoaded', () => {
       
       try {
         const formData = new FormData(contactForm);
-        const response = await fetch(contactForm.action, {
+        const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
+          body: formData
         });
         
-        if (response.ok) {
+        const data = await response.json();
+        
+        if (data.success) {
           alert('¡Gracias por tu mensaje! Te contactaremos pronto a través de eduardo.baez@atyservicio.com');
           contactForm.reset();
         } else {
-          throw new Error('Error en el envío');
+          throw new Error(data.message || 'Error en el envío');
         }
       } catch (error) {
-        alert('Hubo un error al enviar el mensaje. Por favor, intenta nuevamente o contáctanos directamente al +54 911 4047-8374');
+        console.error('Error al enviar:', error);
+        alert('Hubo un error al enviar el mensaje. Por favor, contáctanos directamente al +54 911 4047-8374 o vía WhatsApp');
       } finally {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
