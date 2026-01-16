@@ -108,6 +108,36 @@ document.addEventListener('DOMContentLoaded', () => {
   // Iniciar el slideshow automático
   startSlideShow();
 
+  // Formulario de contacto
+  const contactForm = document.getElementById('contactForm');
+  
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Obtener los datos del formulario
+      const formData = new FormData(contactForm);
+      const data = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        subject: formData.get('subject'),
+        message: formData.get('message')
+      };
+      
+      // Aquí puedes agregar la lógica para enviar el formulario
+      // Por ejemplo, enviar a un servicio de email o API
+      console.log('Datos del formulario:', data);
+      
+      // Mostrar mensaje de confirmación
+      alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
+      
+      // Limpiar el formulario
+      contactForm.reset();
+    });
+  }
+
   console.log('AtyServicio cargado correctamente');
 });
 
