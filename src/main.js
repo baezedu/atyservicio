@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, observerOptions);
 
-  // Observar las secciones para animarlas
-  const sections = document.querySelectorAll('section');
+  // Observar las secciones para animarlas (excepto el hero)
+  const sections = document.querySelectorAll('section:not(.hero)');
   sections.forEach(section => {
     section.style.opacity = '0';
     section.style.transform = 'translateY(20px)';
