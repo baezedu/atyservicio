@@ -108,33 +108,42 @@ document.addEventListener('DOMContentLoaded', () => {
   // Iniciar el slideshow automático
   startSlideShow();
 
-  // Formulario de contacto
+  // Formulario de contacto con FormSpree
   const contactForm = document.getElementById('contactForm');
   
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      // Obtener los datos del formulario
-      const formData = new FormData(contactForm);
-      const data = {
-        firstName: formData.get('firstName'),
-        lastName: formData.get('lastName'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        subject: formData.get('subject'),
-        message: formData.get('message')
-      };
+      const submitBtn = contactForm.querySelector('.submit-btn');
+      const originalText = submitBtn.textContent;
       
-      // Aquí puedes agregar la lógica para enviar el formulario
-      // Por ejemplo, enviar a un servicio de email o API
-      console.log('Datos del formulario:', data);
+      // Mostrar estado de envío
+      submitBtn.textContent = 'Enviando...';
+      submitBtn.disabled = true;
       
-      // Mostrar mensaje de confirmación
-      alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
-      
-      // Limpiar el formulario
-      contactForm.reset();
+      try {
+        const formData = new FormData(contactForm);
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          alert('¡Gracias por tu mensaje! Te contactaremos pronto a través de eduardo.baez@atyservicio.com');
+          contactForm.reset();
+        } else {
+          throw new Error('Error en el envío');
+        }
+      } catch (error) {
+        alert('Hubo un error al enviar el mensaje. Por favor, intenta nuevamente o contáctanos directamente al +54 911 4047-8374');
+      } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
     });
   }
 
